@@ -7,17 +7,17 @@ import com.ljk.bit.util.Md5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import sun.security.rsa.RSASignature;
+
+import java.io.InputStream;
+import java.util.Map;
 
 @Controller
 public class LoginController {
     @Autowired
     private StudentServiceImpl studentService;
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login ")
     public String login(@RequestParam("ID") String ID,
                         @RequestParam("password") String password){
             String md5Psd = Md5Utils.getMD5_32bits(password);
@@ -57,6 +57,27 @@ public class LoginController {
     public String pswCheck(@RequestParam("ID") String ID,
                            @RequestParam(value = "password") String password){
 
+        return null;
+    }
+    @PostMapping(value = "loginWithJson",produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    private Student loginCheck(@RequestBody Map<String,String> map){
+        String ID = null;
+        String password = null;
+        if(map.containsKey("ID")){
+            ID = map.get("ID");
+        }
+        if(map.containsKey("password")){
+            password = map.get("password");
+        }
+        Student student = studentService.queryByID(ID);
+        if(student != null){
+            String pwd = student.getPassword();
+            String md5Password = Md5Utils.getMD5_32bits(password);
+            if(pwd.equals(md5Password)){
+                return student;
+            }
+        }
         return null;
     }
 }

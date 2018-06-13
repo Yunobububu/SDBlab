@@ -32,7 +32,7 @@
 
                 <div class="form-group" id="buttonDiv">
                     <div class="col-md-5 col-md-offset-3">
-                        <button type="submit" id="subBut" class="btn btn-xs btn-primary">登录</button>
+                        <button type="submit" id="subBut"  class="btn btn-xs btn-primary">登录</button>
                         <button type="reset" id="rstBut" class="btn btn-xs btn-warning">重置</button>
                     </div>
                     <div class="col-md-4" id="butSpan"></div>
@@ -48,7 +48,28 @@
         <input type="text" name="ID" id="queryID" placeholder="查询ID">
         <input type="submit" value="查询">
     </form>
+    <script type="text/javascript">
+        //请求json，输出是json
+        $(function(){
+            //1k67u85916.51mypc.cn:33579
+            var prefixUrl="localhost:8080";
+            $("#subBut").click(function(){
+                alert('sjfldjls');
+                $.ajax({
+                    type:"post",
+                    data:$("#loginForm").serialize(),
+                    url:"http://"+prefixUrl+"/loginWithJson",
+                    dataType:"json",
+                    cache:false,
+                    success:function(data){
+                        alert(data);
+                    }
+                })
+            })
+        })
+    </script>
     <script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"/>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"/>
+    <script type="text/javascript" src="resources/js/md5.js"/>
 </body>
 </html>

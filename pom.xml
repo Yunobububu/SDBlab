@@ -16,6 +16,7 @@
     <!--mysql版本-->
     <mysql.version>8.0.11</mysql.version>
     <spring.mybatis.version>1.3.0</spring.mybatis.version>
+    <jkson.version>2.8.7</jkson.version>
   </properties>
   <artifactId>SDBlab</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -136,6 +137,22 @@
           <artifactId>jstl</artifactId>
           <version>1.2</version>
       </dependency>
+    <!--json依赖-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jkson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jkson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jkson.version}</version>
+    </dependency>
 
   </dependencies>
 
