@@ -14,7 +14,7 @@
     <!--mybatis版本依赖-->
     <mybatis.version>3.3.0</mybatis.version>
     <!--mysql版本-->
-    <mysql.version>6.0.6</mysql.version>
+    <mysql.version>8.0.11</mysql.version>
     <spring.mybatis.version>1.3.0</spring.mybatis.version>
   </properties>
   <artifactId>SDBlab</artifactId>
@@ -174,5 +174,19 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <resources>
+      <resource>
+        <directory>src/main/Java</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.* </include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 </project>

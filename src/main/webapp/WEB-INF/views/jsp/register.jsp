@@ -66,7 +66,7 @@
                     </div>
                 <div class="col-md-4" id="roleSpan"></div>
             </div>
-          
+
             <div class="form-group" id="buttonDiv">
                 <div class="col-md-5 col-md-offset-3">
                     <button type="submit" id="subBut" class="btn btn-xs btn-primary">提交</button>

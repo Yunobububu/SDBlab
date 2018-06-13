@@ -44,6 +44,10 @@
         </form>
     </div>
     <a href="register">注册</a>
+    <form action="query" method="post">
+        <input type="text" name="ID" id="queryID" placeholder="查询ID">
+        <input type="submit" value="查询">
+    </form>
     <script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"/>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"/>
 </body>

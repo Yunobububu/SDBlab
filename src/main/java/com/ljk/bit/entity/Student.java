@@ -9,20 +9,20 @@ public class Student {
     private String email;
     private String password;
     private String studentID;
-    private String tutor_ID;
-    private String instrument_ID;
+    private String tutorID;
+    private String instrumentID;
 
     public Student() {
     }
 
     public Student(String name, String email, String password,
-                   String studentID, String tutor_ID, String instrument_ID) {
+                   String studentID, String tutorID, String instrumentID) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.studentID = studentID;
-        this.tutor_ID = tutor_ID;
-        this.instrument_ID = instrument_ID;
+        this.tutorID = tutorID;
+        this.instrumentID = instrumentID;
     }
 
     public String getName() {
@@ -57,20 +57,20 @@ public class Student {
         this.studentID = studentID;
     }
 
-    public String getTutor_ID() {
-        return tutor_ID;
+    public String getTutorID() {
+        return tutorID;
     }
 
-    public void setTutor_ID(String tutor_ID) {
-        this.tutor_ID = tutor_ID;
+    public void setTutorID(String tutorID) {
+        this.tutorID = tutorID;
     }
 
-    public String getInstrument_ID() {
-        return instrument_ID;
+    public String getInstrumentID() {
+        return instrumentID;
     }
 
-    public void setInstrument_ID(String instrument_ID) {
-        this.instrument_ID = instrument_ID;
+    public void setInstrumentID(String instrumentID) {
+        this.instrumentID = instrumentID;
     }
 
     @Override
@@ -82,14 +82,14 @@ public class Student {
                 Objects.equals(email, student.email) &&
                 Objects.equals(password, student.password) &&
                 Objects.equals(studentID, student.studentID) &&
-                Objects.equals(tutor_ID, student.tutor_ID) &&
-                Objects.equals(instrument_ID, student.instrument_ID);
+                Objects.equals(tutorID, student.tutorID) &&
+                Objects.equals(instrumentID, student.instrumentID);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, email, password, studentID, tutor_ID, instrument_ID);
+        return Objects.hash(name, email, password, studentID, tutorID, instrumentID);
     }
 
     @Override
@@ -99,8 +99,8 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", studentID='" + studentID + '\'' +
-                ", tutor_ID='" + tutor_ID + '\'' +
-                ", instrument_ID='" + instrument_ID + '\'' +
+                ", tutorID='" + tutorID + '\'' +
+                ", instrumentID='" + instrumentID + '\'' +
                 '}';
     }
 }
