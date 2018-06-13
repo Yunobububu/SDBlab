@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface StudentService {
     void insert(Student student);
     Student queryByID(String ID);
+    String queryPasswordByID(String ID);
 }

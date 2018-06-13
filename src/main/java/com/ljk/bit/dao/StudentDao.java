@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface StudentDao {
-    Student queryByID(@Param("id") String ID);
+    Student queryByID(@Param("ID") String ID);
     boolean insert(@Param("student") Student student);
+    String queryPasswordByID(@Param("ID") String ID);
 }

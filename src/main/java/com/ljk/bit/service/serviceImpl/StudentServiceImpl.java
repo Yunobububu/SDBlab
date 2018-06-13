@@ -21,4 +21,10 @@ public class StudentServiceImpl implements StudentService{
         Student student = studentDao.queryByID(ID);
         return student;
     }
+
+    @Override
+    public String queryPasswordByID(String ID) {
+        String password = studentDao.queryPasswordByID(ID);
+        return password;
+    }
 }

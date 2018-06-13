@@ -14,12 +14,12 @@
         <form id="loginForm" method="post" action="login" class="form-horizontal">
             <fieldset>
                 <legend><label><span class="glyphicon glyphicon-user">&nbsp;用户登录</span></label></legend>
-                <div class="form-group" id="midDiv">
-                    <label class="col-md-3 control-label" for="mid">用户名:</label>
+                <div class="form-group" id="IDDiv">
+                    <label class="col-md-3 control-label" for="ID">学号/工号:</label>
                     <div class="col-md-5">
-                        <input id="mid" class="from-control" type="text" placeholder="请输入用户名">
+                        <input id="ID" class="from-control" name="ID" type="text" placeholder="请输入用户名">
                     </div>
-                    <div class="col-md-4" id="midSpan"></div>
+                    <div class="col-md-4" id="IDSpan"></div>
                 </div>
                 <div class="form-group" id="passwordDiv">
                     <label class="col-md-3 control-label" for="password">密码:</label>
