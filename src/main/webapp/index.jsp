@@ -13,7 +13,7 @@
 <body>
 
     <div class="container">
-        <form id="loginForm" method="post" action="login" class="form-horizontal">
+        <form id="loginForm" method="post" action="" class="form-horizontal">
             <fieldset>
                 <legend><label><span class="glyphicon glyphicon-user">&nbsp;用户登录</span></label></legend>
                 <div class="form-group" id="IDDiv">
@@ -34,7 +34,7 @@
 
                 <div class="form-group" id="buttonDiv">
                     <div class="col-md-5 col-md-offset-3">
-                        <button type="submit" id="subBut"  class="btn btn-xs btn-primary">登录</button>
+                        <button type="submit " id="subBut"  class="btn btn-xs btn-primary" onclick="return false">登录</button>
                         <button type="reset" id="rstBut" class="btn btn-xs btn-warning">重置</button>
                     </div>
                     <div class="col-md-4" id="butSpan"></div>
@@ -58,41 +58,44 @@
     <script  type="text/javascript" src="${ctx}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script  type="text/javascript" src="${ctx}/resources/js/md5.js"></script>
 
-    <!--禁止表单重复提交-->
+    <!--禁止表单重复提交,对提交按钮进行监听,验证通过后跳到home页,否则弹出密码错误-->
 
     <script type="text/javascript">
-        var btn = $("#subBut");
-        /**
-         * 绑定btn按钮的监听事件
-         */
 
-        alert(btn);
-        var bindBtn = function(){
-            btn.click(function(){
-                // 需要先禁用按钮（为防止用户重复点击）
-                btn.unbind('click');
-
-                $.ajax({
-                    // ..
-                    type:"post",
-                    data:{ID:"23214",password:"03042"},
-                    url:"${ctx}/loginWithJson",
-                    dataType:"json",
-                    contentType:"application/json,charset=UTF-8"
-                })
-                    .done(function () {
-                        alert('提交成功');
-                        //成功，跳转
+        $(function () {
+            $("#subBut").click(
+                function(){
+                    var userID = $("#ID").val();
+                    var psw = $("#password").val();
+                    <!--取password中的值进行md5加密-->
+                    var md5Psw = $.md5(psw);
+                    var jsonData = {ID:userID,password:md5Psw};
+                    var url = "http://localhost:8080/loginWithJson";
+                    $.ajax({
+                        type:"POST",
+                        data:JSON.stringify(jsonData),
+                        dataType:"json",
+                        contentType:"application/json;charset=UTF-8",
+                        url:url,
+                        async: false,
+                        success:function(data){
+                            if(data == null){
+                                alert("密码错误");
+                            }
+                            alert("登录成功");
+                            //else window.location.href="${ctx}/home";
+                        },
+                        error:function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(XMLHttpRequest.status);
+                            alert(errorThrown);
+                            alert(XMLHttpRequest.readyState);
+                        }
                     })
-                    .fail(function () {
-                        //失败，弹窗
-                        alert('服务器错误');
+                }
+            )
+            
+        });
 
-                        // ** 重要：因为提交失败，所以要恢复提交按钮的监听 **
-                        bindBtn();
-                    });
-            })
-        }
     </script>
 </body>
 </html>

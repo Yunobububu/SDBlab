@@ -61,8 +61,8 @@ public class LoginController {
         return null;
     }
     @PostMapping(value = "loginWithJson",produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    private Student loginCheck(@RequestBody Map<String,String> map){
+
+    public @ResponseBody boolean loginCheck(@RequestBody Map<String,String> map){
         String ID = null;
         String password = null;
         if(map.containsKey("ID")){
@@ -71,14 +71,15 @@ public class LoginController {
         if(map.containsKey("password")){
             password = map.get("password");
         }
+        System.out.println(password);
         Student student = studentService.queryByID(ID);
         if(student != null){
             String pwd = student.getPassword();
             String md5Password = Md5Utils.getMD5_32bits(password);
             if(pwd.equals(md5Password)){
-                return student;
+                return true;
             }
         }
-        return null;
+        return true;
     }
 }
