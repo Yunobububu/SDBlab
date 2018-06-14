@@ -17,7 +17,8 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private StudentServiceImpl studentService;
-    @PostMapping(value = "/login ")
+
+    @PostMapping(value = "/login")
     public String login(@RequestParam("ID") String ID,
                         @RequestParam("password") String password){
             String md5Psd = Md5Utils.getMD5_32bits(password);
