@@ -91,14 +91,14 @@
                         data:JSON.stringify(jsonData),
                         dataType:"json",
                         contentType:"application/json;charset=UTF-8",
-                        url:url,
+                        url:"loginWithJson",
                         async: false,
                         success:function(data){
                             if(data == null){
                                 alert("密码错误");
                             }
                             alert("登录成功");
-                            //window.location.href="http://localhost:8080/home";
+                            window.location.href="http://localhost:8080/home";
                         },
                         error:function (XMLHttpRequest, textStatus, errorThrown) {
                             alert(XMLHttpRequest.status);

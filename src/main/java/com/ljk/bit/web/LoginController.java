@@ -4,6 +4,7 @@ import com.ljk.bit.entity.Student;
 import com.ljk.bit.service.StudentService;
 import com.ljk.bit.service.serviceImpl.StudentServiceImpl;
 import com.ljk.bit.util.Md5Utils;
+import com.ljk.bit.util.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ public class LoginController {
     private StudentServiceImpl studentService;
 
     @PostMapping(value = "/login")
-    public String login(@RequestParam("ID") String ID,
+    public @ResponseBody String login(@RequestParam("ID") String ID,
                         @RequestParam("password") String password){
             String md5Psd = Md5Utils.getMD5_32bits(password);
             String psd = studentService.queryPasswordByID(ID);
@@ -60,28 +61,9 @@ public class LoginController {
 
         return null;
     }
-    @PostMapping(value = "loginWithJson",produces = "application/json;charset=UTF-8")
 
-    public @ResponseBody boolean loginCheck(@RequestBody Map<String,String> map){
-        String ID = null;
-        String password = null;
-        int role = -1;
-        if(map.containsKey("ID")){
-            ID = map.get("ID");
-        }
-        if(map.containsKey("password")){
-            password = map.get("password");
-        }
-        //获取前端传过来的role:
-        // 3:student;2:tutor;1:engineer;0:sys
-        if(map.containsKey("role")){
-            role = Integer.parseInt(map.get("role"));
-        }
-        if(role == 3){
-            Student student = studentService.queryByID(ID);
-            System.out.println(student);
-        }
-
-        return true;
+    @GetMapping(value = "home")
+    public String home(){
+        return "home";
     }
 }

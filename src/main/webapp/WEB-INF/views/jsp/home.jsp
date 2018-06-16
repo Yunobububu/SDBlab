@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>home</title>
-    <p>密码正确success</p>
+    <p>欢迎新用户</p>
 </head>
 <body>
 

@@ -200,6 +200,7 @@
                 var email = $("#email").val();
                 var md5Psw = $.md5(psw);
                 var userID = $("#ID").val();
+                var uri = "http://localhost:8080/"
                 var JSONdata = {
                     userName:userName,
                     role:role,
@@ -214,12 +215,15 @@
                 }
                 $.ajax({
                     type:"POST",
-                    url:url,
+                    url:uri + "registerUpdate",
                     data:JSON.stringify(JSONdata),
                     dataType:"json",
                     contentType:"application/json;charset=UTF-8",
                     success:function (data) {
                         alert(data.message);
+                        if(data.code == 200){
+                            window.location.href = uri + "home";
+                        }
                     }
                 })
             }
