@@ -30,19 +30,32 @@
                     </div>
                     <div class="col-md-4" id="passwordSpan"></div>
                 </div>
-
+                <div class="form-group" id="roleDiv">
+                    <label class="col-md-3 control-label" for="password">我是:</label>
+                        <div class="col-md-5">
+                            <label class="radio-inline">
+                                <input type="radio"  id="stuRadio" name="role" value="3" checked="checked">学生
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  id="tutorRadio" name="role" value="2">指导老师
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  id="engRadio" name="role" value="1">工程师
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  id="sysRadio" name="role" value="0">管理员
+                            </label>
+                        <div class="col-md-4" id="roleSpan"></div>
+                </div>
 
                 <div class="form-group" id="buttonDiv">
                     <div class="col-md-5 col-md-offset-3">
-                        <button type="submit " id="subBut"  class="btn btn-xs btn-primary" onclick="return false">登录</button>
+                        <button type="button" id="subBut"  class="btn btn-xs btn-primary" onclick="return false">登录</button>
                         <button type="reset" id="rstBut" class="btn btn-xs btn-warning">重置</button>
                     </div>
                     <div class="col-md-4" id="butSpan"></div>
                 </div>
-
-
             </fieldset>
-
         </form>
     </div>
     <a href="register">注册</a><br>
@@ -69,7 +82,9 @@
                     var psw = $("#password").val();
                     <!--取password中的值进行md5加密-->
                     var md5Psw = $.md5(psw);
-                    var jsonData = {ID:userID,password:md5Psw};
+                    var role = $('input[name="role"]:checked').val();
+                    alert(role);
+                    var jsonData = {ID:userID,password:md5Psw,role:role};
                     var url = "http://localhost:8080/loginWithJson";
                     $.ajax({
                         type:"POST",
@@ -83,7 +98,7 @@
                                 alert("密码错误");
                             }
                             alert("登录成功");
-                            //else window.location.href="${ctx}/home";
+                            //window.location.href="http://localhost:8080/home";
                         },
                         error:function (XMLHttpRequest, textStatus, errorThrown) {
                             alert(XMLHttpRequest.status);

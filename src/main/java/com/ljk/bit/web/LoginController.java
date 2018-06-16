@@ -65,21 +65,23 @@ public class LoginController {
     public @ResponseBody boolean loginCheck(@RequestBody Map<String,String> map){
         String ID = null;
         String password = null;
+        int role = -1;
         if(map.containsKey("ID")){
             ID = map.get("ID");
         }
         if(map.containsKey("password")){
             password = map.get("password");
         }
-        System.out.println(password);
-        Student student = studentService.queryByID(ID);
-        if(student != null){
-            String pwd = student.getPassword();
-            String md5Password = Md5Utils.getMD5_32bits(password);
-            if(pwd.equals(md5Password)){
-                return true;
-            }
+        //获取前端传过来的role:
+        // 3:student;2:tutor;1:engineer;0:sys
+        if(map.containsKey("role")){
+            role = Integer.parseInt(map.get("role"));
         }
+        if(role == 3){
+            Student student = studentService.queryByID(ID);
+            System.out.println(student);
+        }
+
         return true;
     }
 }

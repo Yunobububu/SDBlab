@@ -8,4 +8,5 @@ public interface StudentService {
     void insert(Student student);
     Student queryByID(String ID);
     String queryPasswordByID(String ID);
+    Student queryByName(String ID);
 }

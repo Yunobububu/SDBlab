@@ -18,4 +18,9 @@
         FROM student
         WHERE student_ID = #{ID}
     </select>
+    <select id="queryByName" parameterType="String" resultType="Student">
+        SELECT *
+        FROM student
+        WHERE name = #{ID}
+    </select>
 </mapper>

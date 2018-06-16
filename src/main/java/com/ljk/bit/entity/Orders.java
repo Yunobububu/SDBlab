@@ -1,8 +1,10 @@
 package com.ljk.bit.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.Objects;
-
+@Component
 public class Orders {
     private String order_ID;
     private Date startTime;
