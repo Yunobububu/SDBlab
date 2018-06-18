@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljk.bit.dao.EngineerDao" >
+    <select id="queryByID" parameterType="String" resultType="Engineer">
+        SELECT *
+        FROM engineer
+        WHERE engineer_ID = #{ID}
+    </select>
+    <select id="queryByName" parameterType="String" resultType="Engineer">
+        SELECT *
+        FROM engineer
+        WHERE NAME = #{name}
+    </select>
+
+    <insert id="insertOrUpdate" parameterType="Engineer">
+        INSERT INTO engineer(engineer_ID,name,password,role,email,instrument_ID)
+        VALUES(#{engineer.engineerID},#{engineer.name},#{engineer.password},
+                #{engineer.role},#{engineer.email},#{engineer.instrumentID})
+    </insert>
+    <delete id="deleteByID" parameterType="String">
+        DELETE FROM engineer
+        WHERE engineer_ID = #{ID}
+    </delete>
+</mapper>

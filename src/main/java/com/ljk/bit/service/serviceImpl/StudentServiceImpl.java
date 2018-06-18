@@ -33,4 +33,12 @@ public class StudentServiceImpl implements StudentService{
         Student student = studentDao.queryByName(ID);
         return student;
     }
+    public boolean isExist(String ID){
+        Student student = studentDao.queryByID(ID);
+        return (student != null) ? true : false;
+    }
+    public boolean isNameExist(String name){
+        Student student = studentDao.queryByName(name);
+        return (student != null) ? true : false;
+    }
 }

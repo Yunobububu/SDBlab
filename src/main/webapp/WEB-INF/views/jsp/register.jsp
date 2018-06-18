@@ -98,7 +98,7 @@
                 return false;
             }
             var role = $('input[name="role"]:checked').val();
-            var jsonData = {ID:userID,role:role};
+            var jsonData = {userID:userID,role:role};
             $.ajax({
                 type:"POST",
                 url:"registerIDCheck",
@@ -106,7 +106,7 @@
                 data:JSON.stringify(jsonData),
                 contentType:"application/json;charset=UTF-8",
                 success:function (data) {
-                    if(data != null){
+                    if(data.code == -1){
                         //回传的是json对象,可以直接用data.field 获取属性的值
                         $("#IDSpan").html("<em style='font-family: color:red'>用户ID已经存在</em>");
                     }else{
@@ -134,7 +134,7 @@
                 data:JSON.stringify(jsonData),
                 contentType:"application/json;charset=UTF-8",
                 success:function (data) {
-                    if(data != null){
+                    if(data.code == -1){
                         //回传的是json对象,可以直接用data.field 获取属性的值
                         $("#nameSpan").html("<em style='font-family: color:red'>用户名已经存在</em>");
                     }else{

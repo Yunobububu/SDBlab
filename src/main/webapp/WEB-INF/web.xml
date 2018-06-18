@@ -4,10 +4,31 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+
+
+
   <context-param>
-  <param-name>contextConfigLocation</param-name>
-  <param-value>classpath:spring/*.xml</param-value>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/*.xml</param-value>
   </context-param>
+
+  <listener>
+    <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+  </listener>
+  <filter>
+    <filter-name>log4jServletFilter</filter-name>
+    <filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>log4jServletFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+
   <!-- Character Encoding filter 解决中文问题 -->
 
   <filter>

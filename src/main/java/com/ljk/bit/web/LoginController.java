@@ -1,18 +1,12 @@
 package com.ljk.bit.web;
 
 import com.ljk.bit.entity.Student;
-import com.ljk.bit.service.StudentService;
 import com.ljk.bit.service.serviceImpl.StudentServiceImpl;
 import com.ljk.bit.util.Md5Utils;
-import com.ljk.bit.util.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.security.rsa.RSASignature;
-
-import java.io.InputStream;
-import java.util.Map;
 
 @Controller
 public class LoginController {

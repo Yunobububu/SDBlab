@@ -1,4 +1,4 @@
-package com.ljk.bit.util;
+package com.ljk.bit.dto;
 
 
 import org.springframework.stereotype.Component;
@@ -60,4 +60,6 @@ public class ResponseData {
     public static ResponseData customerError() {
         return new ResponseData(1001, "customer Error");
     }
+
+    public static ResponseData alreadyExist(){ return  new ResponseData(-1,"already Exist");};
 }

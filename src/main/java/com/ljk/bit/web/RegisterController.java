@@ -1,10 +1,14 @@
 package com.ljk.bit.web;
 
+import com.ljk.bit.entity.Engineer;
 import com.ljk.bit.entity.Register;
 import com.ljk.bit.entity.Student;
 import com.ljk.bit.service.StudentService;
+import com.ljk.bit.service.serviceImpl.EngineerServiceImpl;
+import com.ljk.bit.service.serviceImpl.StudentServiceImpl;
 import com.ljk.bit.util.Md5Utils;
-import com.ljk.bit.util.ResponseData;
+import com.ljk.bit.dto.ResponseData;
+import com.ljk.bit.vo.StudentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,51 +21,70 @@ import java.util.Map;
 public class RegisterController {
 
     @Autowired
-    private StudentService studentService;
+    private StudentServiceImpl studentService;
     @Autowired
-    private Student student;
+    private EngineerServiceImpl engineerService;
+    @Autowired
+    private StudentVo student;
+    @Autowired
+    private Engineer engineer;
+    @Autowired
     @PostMapping(value = "registerIDCheck" )
-    public @ResponseBody ResponseData IDCheck(@RequestBody Map<String,String> map){
-        String ID = null;
-        Student student = null;
-        int role = -1;
-        if(map.containsKey("role")){
-            role = Integer.parseInt(map.get("role"));
-        }
-        if(map.containsKey("ID")){
-            ID = map.get("ID");
-            if(ID != null){
-                if(role == 3){
-                    student = studentService.queryByID(ID);
-                    if(student == null)
-                    return null;
-                }
+    public @ResponseBody ResponseData IDCheck(@RequestBody Register register){
+        System.out.println(register);
+        String ID = register.getUserID();
+        int role = register.getRole();
+        if(role == 3){
+            if(studentService.isExist(ID)){
+                return ResponseData.alreadyExist();
             }
+        }else if(role == 2){
+            if(engineerService.isExist(ID)){
+                return ResponseData.alreadyExist();
+            }
+        }else if(role == 1){
         }
         return ResponseData.ok();
     }
     @PostMapping(value = "registerUserNameCheck")
     public @ResponseBody ResponseData nameCheck(@RequestBody Register register){
         //System.out.println(register);
-        if(register.getRole() == 3){
-            Student student = studentService.queryByName(register.getUserName());
-            if(student == null){
-                return null;
+        int role = register.getRole();
+        if(role == 3){
+            if(studentService.isNameExist(register.getUserName())){
+                return ResponseData.alreadyExist();
             }
+        }else if (role == 2){
+            if (engineerService.isNameExist(register.getUserName())){
+                return ResponseData.alreadyExist();
+            }
+        }else if(role == 1){
+
         }
         return ResponseData.ok();
     }
     @PostMapping(value = "registerUpdate")
     public @ResponseBody ResponseData registerUpdate(@RequestBody Register register){
-        int role = -1;
-        role = register.getRole();
+        int role = register.getRole();
+        String userName = register.getUserName();
+        String password = Md5Utils.getMD5_32bits(register.getPassword());
+        String userID = register.getUserID();
+        String email = register.getEmail();
         if(role == 3){
-            student.setPassword(Md5Utils.getMD5_32bits(register.getPassword()));
-            student.setStudentID(register.getUserID());
-            student.setEmail(register.getEmail());
-            student.setName(register.getUserName());
-            System.out.println(student);
+            student.setPassword(password);
+            student.setStudentID(userID);
+            student.setEmail(email);
+            student.setName(userName);
+            student.setRole(role);
             studentService.insert(student);
+        }else if(role == 2){
+            engineer.setEmail(email);
+            engineer.setEngineerID(userID);
+            engineer.setName(userName);
+            engineer.setPassword(password);
+            engineer.setEngineerID(userID);
+            engineer.setRole(role);
+            engineerService.insert(engineer);
         }
         return ResponseData.ok();
     }
