@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljk.bit.dao.OrdersDao">
+    <resultMap id="ivForResultMap" type="Orders">
+        <result property="createTime" column="create_time" javaType="java.time.LocalDateTime" jdbcType="TIME"></result>
+    </resultMap>
+    <insert id="insertOrUpdate" parameterType="Orders">
+        INSERT INTO orders(instrument_ID,start_time,end_time,create_time,status,order_ID)
+        VALUES (#{order.instrumentID},#{order.startTime},#{order.endTime},#{order.createTime},#{order.status},#{order.orderID})
+    </insert>
+    <select id="queryStartMap" parameterType="java.time.LocalDateTime" resultType="map">
+        SELECT * from orders
+        WHERE start_time BETWEEN #{startTime} and #{endTime}
+        ORDER By start_time
+    </select>
+    <select id="queryStartTimeList" parameterType="java.time.LocalDateTime" resultType="java.time.LocalDateTime">
+        SELECT start_time from orders
+        WHERE start_time BETWEEN #{startTime} and #{endTime}
+        ORDER By start_time
+
+    </select>
+</mapper>

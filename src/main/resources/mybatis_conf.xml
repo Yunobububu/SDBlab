@@ -19,6 +19,8 @@
     <typeAliases>
         <typeAlias type="com.ljk.bit.entity.Student" alias="Student"/>
         <typeAlias type="com.ljk.bit.entity.Engineer" alias="Engineer"/>
+        <typeAlias type="com.ljk.bit.entity.Orders" alias="Orders"/>
+        <typeAlias type="com.ljk.bit.entity.Instrument" alias="Instrument"/>
         <typeAlias type="com.ljk.bit.vo.StudentVo" alias="StudentVo"/>
     </typeAliases>
 
