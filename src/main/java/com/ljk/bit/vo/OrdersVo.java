@@ -11,7 +11,7 @@ public class OrdersVo extends Orders{
     public OrdersVo() {
     }
 
-    public OrdersVo(String orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime) {
+    public OrdersVo(long orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime) {
         super(orderID, startTime, endTime, status, instrumentID, createTime);
     }
 

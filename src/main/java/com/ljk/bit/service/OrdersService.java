@@ -20,7 +20,7 @@ public interface OrdersService {
     List<Boolean> isOrdered();
     List<OrdersVo> queryByUserID(String userID);
     List<StudentOrderView> studentOrderView(String userID);
-    void deleteByID(String orderID);
+    void deleteByID(long orderID);
     List<EngineerOrderView> queryOrdersInWeek(LocalDateTime startTime,LocalDateTime endTime);
     void export(String[] titles, ServletOutputStream out,String tutorID);
 }

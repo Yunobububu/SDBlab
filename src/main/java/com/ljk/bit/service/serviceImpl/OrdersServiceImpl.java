@@ -49,8 +49,6 @@ public class OrdersServiceImpl implements OrdersService{
         order.setStartTime(DateUtils.startTime(day,time));
         order.setEndTime(DateUtils.endTime(day,time));
         order.setInstrumentID(instrumentID);
-        String ID = LocalTime.now().toString();
-        order.setOrderID(ID);
         order.setUserID(userID);
         ordersDao.insertOrUpdate(order);
     }
@@ -97,7 +95,7 @@ public class OrdersServiceImpl implements OrdersService{
     }
 
     @Override
-    public void deleteByID(String orderID) {
+    public void deleteByID(long orderID) {
         ordersDao.deleteByOrderID(orderID);
     }
 

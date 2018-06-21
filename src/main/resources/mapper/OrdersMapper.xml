@@ -11,9 +11,9 @@
         <result property="studentName" column="name" javaType="String" jdbcType="VARCHAR"></result>
     </resultMap>
     <insert id="insertOrUpdate" parameterType="OrdersVo">
-        INSERT INTO orders(instrument_ID,start_time,end_time,create_time,status,order_ID,user_ID)
+        INSERT INTO orders(instrument_ID,start_time,end_time,create_time,status,user_ID)
         VALUES (#{order.instrumentID},#{order.startTime},#{order.endTime},
-                  #{order.createTime},#{order.status},#{order.orderID},#{order.userID})
+                  #{order.createTime},#{order.status},#{order.userID})
     </insert>
     <select id="queryStartMap" parameterType="java.time.LocalDateTime" resultType="map">
         SELECT * from orders
@@ -37,7 +37,7 @@
         AND s.student_ID = o.user_ID;
     </select>
 
-    <delete id="deleteByOrderID" parameterType="String">
+    <delete id="deleteByOrderID" parameterType="long">
         DELETE FROM orders
         WHERE order_ID = #{orderID}
     </delete>

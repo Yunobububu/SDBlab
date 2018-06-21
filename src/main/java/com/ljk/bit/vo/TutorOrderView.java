@@ -14,7 +14,7 @@ public class TutorOrderView extends Orders{
     public TutorOrderView() {
     }
 
-    public TutorOrderView(String orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime, String instrumentName, float price) {
+    public TutorOrderView(long orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime, String instrumentName, float price) {
         super(orderID, startTime, endTime, status, instrumentID, createTime);
         this.instrumentName = instrumentName;
         this.price = price;

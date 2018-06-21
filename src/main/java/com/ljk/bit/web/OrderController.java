@@ -38,7 +38,7 @@ public class OrderController {
         return "redirect:/home";
     }
     @RequestMapping(value = "delete",method = RequestMethod.GET)
-    public String deleteOrderByID(String orderID, String token, RedirectAttributes model){
+    public String deleteOrderByID(long orderID, String token, RedirectAttributes model){
         model.addAttribute("token",token);
         ordersService.deleteByID(orderID);
         return "redirect:/home";

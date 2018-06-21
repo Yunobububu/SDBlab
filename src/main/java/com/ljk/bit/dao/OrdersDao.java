@@ -22,7 +22,7 @@ public interface OrdersDao {
                                                       @Param("endTime") LocalDateTime endTime);
     List<OrdersVo> queryByUserID(@Param("userID") String userID);
     List<StudentOrderView> queryOrderOfStudent(@Param("studentID") String studentID);
-    void deleteByOrderID(@Param("orderID") String orderID);
+    void deleteByOrderID(@Param("orderID") long orderID);
     List<EngineerOrderView> queryOrdersInWeek(@Param("startTime") LocalDateTime startTime,
                                               @Param("endTime") LocalDateTime endTime);
     void pass(@Param("orderID") String orderID);

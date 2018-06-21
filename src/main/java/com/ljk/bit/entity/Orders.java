@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Objects;
 @Component
 public class Orders {
-    private String orderID;
+    private long orderID;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private int status;
@@ -26,7 +26,7 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(String orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime) {
+    public Orders(long orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime) {
         this.orderID = orderID;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -66,11 +66,11 @@ public class Orders {
         return Objects.hash(orderID, startTime, endTime, status, instrumentID, createTime);
     }
 
-    public String getOrderID() {
+    public long getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(String orderID) {
+    public void setOrderID(long orderID) {
         this.orderID = orderID;
     }
 

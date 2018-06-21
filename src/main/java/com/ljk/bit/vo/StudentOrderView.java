@@ -15,7 +15,7 @@ public class StudentOrderView extends Orders{
         this.instrumentName = instrumentName;
     }
 
-    public StudentOrderView(String orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime, float price, String instrumentName) {
+    public StudentOrderView(long orderID, LocalDateTime startTime, LocalDateTime endTime, int status, String instrumentID, LocalDateTime createTime, float price, String instrumentName) {
         super(orderID, startTime, endTime, status, instrumentID, createTime);
         this.price = price;
         this.instrumentName = instrumentName;
