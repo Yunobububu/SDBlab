@@ -27,7 +27,15 @@
 
     <!--配置静态资源映射-->
     <mvc:resources mapping="/resources/**/" location="/resources/"/>
-
+    <!--配置拦截器器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+                <bean class="com.ljk.bit.interceptors.TokenInterceptor">
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
         <property name="suffix" value=".jsp"></property>

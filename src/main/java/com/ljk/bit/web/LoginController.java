@@ -3,9 +3,14 @@ package com.ljk.bit.web;
 import com.ljk.bit.dto.ResponseData;
 import com.ljk.bit.entity.LoginInfo;
 import com.ljk.bit.entity.Student;
+import com.ljk.bit.service.OrdersService;
+import com.ljk.bit.service.TutorService;
+import com.ljk.bit.service.serviceImpl.EngineerServiceImpl;
 import com.ljk.bit.service.serviceImpl.StudentServiceImpl;
+import com.ljk.bit.service.serviceImpl.TutorServiceImpl;
 import com.ljk.bit.util.JWT;
 import com.ljk.bit.util.Md5Utils;
+import com.ljk.bit.vo.StudentOrderView;
 import com.ljk.bit.vo.StudentVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,32 +18,37 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class LoginController {
     @Autowired
     private StudentServiceImpl studentService;
-//    @PostMapping(value = "/login")
-//    public @ResponseBody String login(@RequestParam("ID") String ID,
-//                        @RequestParam("password") String password){
-//            String md5Psd = Md5Utils.getMD5_32bits(password);
-//            String psd = studentService.queryPasswordByID(ID);
-//            System.out.println(md5Psd);
-//            System.out.println(psd);
-//            if(md5Psd.equals(psd)){
-//                return "home";
-//            }
-//        return "error";
-//    }
+    @Autowired
+    private OrdersService ordersService;
+    @Autowired
+    private EngineerServiceImpl engineerService;
+    @Autowired
+    private TutorServiceImpl tutorService;
     @RequestMapping(value = "/login",method = {RequestMethod.GET,RequestMethod.POST})
     public @ResponseBody ResponseData login(@RequestBody LoginInfo loginInfo){
         int role = loginInfo.getRole();
         ResponseData responseData = ResponseData.ok();
-        if(role == 3){
-            if(studentService.login(loginInfo)){
-                String token = JWT.sign(loginInfo,10000);
-                responseData.putDataValue("token",token);
-                return responseData;
-            }
+        String token = JWT.sign(loginInfo,15L*60L*1000L);
+        responseData.putDataValue("token",token);
+        switch (role){
+            case 3:
+                if(studentService.login(loginInfo))
+                    return responseData;
+                break;
+            case 2:
+                if(engineerService.login(loginInfo))
+                    return responseData;
+                break;
+            case 1:
+                if(tutorService.login(loginInfo))
+                    return responseData;
+                break;
         }
         return ResponseData.unauthorized();
     }
@@ -73,10 +83,24 @@ public class LoginController {
         return null;
     }
 
-    @GetMapping(value = "home")
-    public String home(String token){
+    @GetMapping(value = "/home")
+    public String home(Model model,String token){
         LoginInfo loginInfo = JWT.unsign(token,LoginInfo.class);
-        System.out.println("token :"+loginInfo);
-        return "home";
+        model.addAttribute("token",token);
+        String userID = loginInfo.getUserID();
+        int role = loginInfo.getRole();
+        String des = "error";
+        if(role == 3){
+            List<StudentOrderView> studentOrderViewsList = ordersService.studentOrderView(userID);
+            model.addAttribute("ViewsList",studentOrderViewsList);
+            System.out.println(studentOrderViewsList);
+            des = "studentHome";
+        }else if(role == 2){
+            des = "engineerHome";
+        }else if(role == 1){
+            des = "tutorHome";
+        }
+        return des;
     }
+
 }

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Instrument {
     private String instrumentID;
-    private String name;
+    private String instrumentName;
     private double price;
     private int status;
     private Date startTime;
@@ -14,9 +14,9 @@ public class Instrument {
     public Instrument() {
     }
 
-    public Instrument(String instrumentID, String name, double price, int status, Date startTime, Date endTime) {
+    public Instrument(String instrumentID, String instrumentName, double price, int status, Date startTime, Date endTime) {
         this.instrumentID = instrumentID;
-        this.name = name;
+        this.instrumentName = instrumentName;
         this.price = price;
         this.status = status;
         this.startTime = startTime;
@@ -31,12 +31,12 @@ public class Instrument {
         this.instrumentID = instrumentID;
     }
 
-    public String getName() {
-        return name;
+    public String getInstrumentName() {
+        return instrumentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInstrumentName(String instrumentName) {
+        this.instrumentName = instrumentName;
     }
 
     public double getPrice() {
@@ -79,7 +79,7 @@ public class Instrument {
         return Double.compare(that.price, price) == 0 &&
                 status == that.status &&
                 Objects.equals(instrumentID, that.instrumentID) &&
-                Objects.equals(name, that.name) &&
+                Objects.equals(instrumentName, that.instrumentName) &&
                 Objects.equals(startTime, that.startTime) &&
                 Objects.equals(endTime, that.endTime);
     }
@@ -87,14 +87,14 @@ public class Instrument {
     @Override
     public int hashCode() {
 
-        return Objects.hash(instrumentID, name, price, status, startTime, endTime);
+        return Objects.hash(instrumentID, instrumentName, price, status, startTime, endTime);
     }
 
     @Override
     public String toString() {
         return "Instrument{" +
                 "instrumentID='" + instrumentID + '\'' +
-                ", name='" + name + '\'' +
+                ", instrumentName='" + instrumentName + '\'' +
                 ", price=" + price +
                 ", status=" + status +
                 ", startTime=" + startTime +

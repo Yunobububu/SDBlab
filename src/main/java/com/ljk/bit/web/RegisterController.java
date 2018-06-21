@@ -3,9 +3,12 @@ package com.ljk.bit.web;
 import com.ljk.bit.entity.Engineer;
 import com.ljk.bit.entity.Register;
 import com.ljk.bit.entity.Student;
+import com.ljk.bit.entity.Tutor;
 import com.ljk.bit.service.StudentService;
+import com.ljk.bit.service.TutorService;
 import com.ljk.bit.service.serviceImpl.EngineerServiceImpl;
 import com.ljk.bit.service.serviceImpl.StudentServiceImpl;
+import com.ljk.bit.service.serviceImpl.TutorServiceImpl;
 import com.ljk.bit.util.Md5Utils;
 import com.ljk.bit.dto.ResponseData;
 import com.ljk.bit.vo.StudentVo;
@@ -25,9 +28,13 @@ public class RegisterController {
     @Autowired
     private EngineerServiceImpl engineerService;
     @Autowired
+    private TutorServiceImpl tutorService;
+    @Autowired
     private StudentVo student;
     @Autowired
     private Engineer engineer;
+    @Autowired
+    private Tutor tutor;
     @Autowired
     @PostMapping(value = "registerIDCheck" )
     public @ResponseBody ResponseData IDCheck(@RequestBody Register register){
@@ -43,6 +50,8 @@ public class RegisterController {
                 return ResponseData.alreadyExist();
             }
         }else if(role == 1){
+            if(tutorService.isIDExist(ID))
+                return ResponseData.alreadyExist();
         }
         return ResponseData.ok();
     }
@@ -59,10 +68,14 @@ public class RegisterController {
                 return ResponseData.alreadyExist();
             }
         }else if(role == 1){
-
+            if(tutorService.isNameExist(register.getUserName()))
+                return ResponseData.alreadyExist();
         }
         return ResponseData.ok();
     }
+    /*
+     *学生角色为3,工程师角色为2,指导老师角色为1
+     */
     @PostMapping(value = "registerUpdate")
     public @ResponseBody ResponseData registerUpdate(@RequestBody Register register){
         int role = register.getRole();
@@ -79,12 +92,18 @@ public class RegisterController {
             studentService.insert(student);
         }else if(role == 2){
             engineer.setEmail(email);
-            engineer.setEngineerID(userID);
             engineer.setName(userName);
             engineer.setPassword(password);
             engineer.setEngineerID(userID);
             engineer.setRole(role);
             engineerService.insert(engineer);
+        }else if(role == 1){
+            tutor.setTutorID(userID);
+            tutor.setPassword(password);
+            tutor.setEmail(email);
+            tutor.setRole(role);
+            tutor.setTutorName(userName);
+            tutorService.insert(tutor);
         }
         return ResponseData.ok();
     }

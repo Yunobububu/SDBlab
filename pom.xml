@@ -188,6 +188,23 @@
       <artifactId>mybatis-typehandlers-jsr310</artifactId>
       <version>1.0.1</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi</artifactId>
+          <version>3.16</version>
+      </dependency>
+    <!-- https://mvnrepository.com/artifact/io.airlift/log -->
+
   </dependencies>
 
   <build>

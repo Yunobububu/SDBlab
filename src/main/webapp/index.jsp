@@ -37,10 +37,10 @@
                                 <input type="radio"  id="stuRadio" name="role" value="3" checked="checked">学生
                             </label>
                             <label class="radio-inline">
-                                <input type="radio"  id="tutorRadio" name="role" value="2">指导老师
+                                <input type="radio"  id="tutorRadio" name="role" value="2">工程师
                             </label>
                             <label class="radio-inline">
-                                <input type="radio"  id="engRadio" name="role" value="1">工程师
+                                <input type="radio"  id="engRadio" name="role" value="1">指导老师
                             </label>
                             <label class="radio-inline">
                                 <input type="radio"  id="sysRadio" name="role" value="0">管理员
@@ -74,9 +74,6 @@
     <!--禁止表单重复提交,对提交按钮进行监听,验证通过后跳到home页,否则弹出密码错误-->
     <script type="text/javascript" src="${ctx}/resources/js/index.js"></script>
     <script type="text/javascript">
-
-
-
     </script>
 </body>
 </html>

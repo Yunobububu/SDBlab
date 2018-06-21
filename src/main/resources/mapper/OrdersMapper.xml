@@ -4,9 +4,16 @@
     <resultMap id="ivForResultMap" type="Orders">
         <result property="createTime" column="create_time" javaType="java.time.LocalDateTime" jdbcType="TIME"></result>
     </resultMap>
-    <insert id="insertOrUpdate" parameterType="Orders">
-        INSERT INTO orders(instrument_ID,start_time,end_time,create_time,status,order_ID)
-        VALUES (#{order.instrumentID},#{order.startTime},#{order.endTime},#{order.createTime},#{order.status},#{order.orderID})
+    <resultMap id="ivForEngOrderView" type="EngineerOrderView">
+        <result property="studentName" column="name" javaType="String" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <resultMap id="ivForTutorOrderView" type="TutorOrderView">
+        <result property="studentName" column="name" javaType="String" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <insert id="insertOrUpdate" parameterType="OrdersVo">
+        INSERT INTO orders(instrument_ID,start_time,end_time,create_time,status,order_ID,user_ID)
+        VALUES (#{order.instrumentID},#{order.startTime},#{order.endTime},
+                  #{order.createTime},#{order.status},#{order.orderID},#{order.userID})
     </insert>
     <select id="queryStartMap" parameterType="java.time.LocalDateTime" resultType="map">
         SELECT * from orders
@@ -17,6 +24,42 @@
         SELECT start_time from orders
         WHERE start_time BETWEEN #{startTime} and #{endTime}
         ORDER By start_time
+    </select>
+    <select id="queryByUserID" parameterType="String" resultType="OrdersVo">
+        SELECT * from orders
+        WHERE user_ID = #{userID}
+    </select>
+    <select id="queryOrderOfStudent" parameterType="String" resultType="StudentOrderView">
+        SELECT s.name,o.start_time,o.end_time,i.price,o.status,o.order_ID,i.instrument_name
+        FROM student s,orders o,instrument i
+        WHERE o.user_ID = #{studentID}
+        AND o.instrument_ID = i.instrument_ID
+        AND s.student_ID = o.user_ID;
+    </select>
 
+    <delete id="deleteByOrderID" parameterType="String">
+        DELETE FROM orders
+        WHERE order_ID = #{orderID}
+    </delete>
+    <select id="queryOrdersInWeek" parameterType="java.time.LocalDateTime" resultType="EngineerOrderView" resultMap="ivForEngOrderView">
+      SELECT s.name,i.instrument_name,o.start_time,o.end_time,i.price,o.status,o.order_ID
+      FROM student s,orders o,instrument i
+      WHERE o.start_time between #{startTime} and #{endTime}
+      and o.instrument_ID = i.instrument_ID
+      and s.student_ID = o.user_ID
+    </select>
+    <update id="pass" parameterType="String">
+        UPDATE  orders
+        SET status = 1
+        WHERE order_ID = #{orderID}
+    </update>
+    <select id="queryOrdersForTutor" parameterType="String" resultType="TutorOrderView" resultMap="ivForTutorOrderView">
+        SELECT s.name,i.instrument_name,o.start_time,o.end_time,i.price,o.order_ID
+        FROM student s,orders o,instrument i,tutor t
+        WHERE t.tutor_ID = #{tutorID}
+        AND s.tutor_ID = t.tutor_ID
+        AND s.student_ID = o.user_ID
+        AND o.instrument_ID = i.instrument_ID
+        ORDER By o.start_time;
     </select>
 </mapper>

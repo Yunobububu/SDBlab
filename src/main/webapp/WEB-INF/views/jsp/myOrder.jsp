@@ -49,13 +49,11 @@
 <table class="table table-bordered table-hover" style="margin-top:30px;">
     <thead>
     <tr class="info">
-        <td colspan="6" align="center" valign="middle">我的预约</td>
+        <td colspan="5" align="center" valign="middle">我的预约</td>
     </tr>
     </thead>
     <tbody>
     <tr class="success">
-
-        <td align="center" valign="middle">仪器名称</td>
         <td align="center" valign="middle">开始时间</td>
         <td align="center" valign="middle">结束时间</td>
         <td align="center" valign="middle">价格</td>
@@ -63,29 +61,28 @@
         <td align="center" valign="middle">删除</td>
     </tr>
     <c:forEach var="order" items="${ViewsList}">
-        <tr class="success">
-            <td align="center" valign="middle">${order.instrumentName}</td>
-            <td align="center" valign="middle">${order.startTime}</td>
-            <td align="center" valign="middle">${order.endTime}</td>
-            <td align="center" valign="middle">${order.price}</td>
-            <c:if test="${order.status == 0}">
-                <td align="center" valign="middle" style="background-color: #ec971f">待审核</td>
-            </c:if>
-            <c:if test="${order.status == 1}">
-                <td align="center" valign="middle" style="background-color: green">已通过</td>
-            </c:if>
-            <c:if test="${order.status == 0}">
-                <td align="center" valign="middle">
+    <tr class="success">
+        <td align="center" valign="middle">${order.startTime}</td>
+        <td align="center" valign="middle">${order.endTime}</td>
+        <td align="center" valign="middle">${order.price}</td>
+        <c:if test="${order.status == 0}">
+            <td align="center" valign="middle" style="background-color: #ec971f">待审核</td>
+        </c:if>
+        <c:if test="${order.status == 1}">
+            <td align="center" valign="middle" style="background-color: green">已通过</td>
+        </c:if>
+        <c:if test="${order.status == 0}">
+            <td align="center" valign="middle">
                     <span style="background-color: red">
                         <a href="/order/delete?token=${token}&orderID=${order.orderID}">
                             删除
                         </a>
                     </span>
-                </td>
-            </c:if>
-            <c:if test="${order.status == 1}">
-                <td align="center" valign="middle" style="background-color: green">已通过</td>
-            </c:if>
+            </td>
+        </c:if>
+        <c:if test="${order.status == 1}">
+            <td align="center" valign="middle" style="background-color: green">已通过</td>
+        </c:if>
         </c:forEach>
     </tr>
     </tbody>

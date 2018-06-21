@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljk.bit.dao.TutorDao" >
+    <select id="queryByID" parameterType="String" resultType="Tutor">
+        SELECT *
+        FROM tutor
+        WHERE tutor_ID = #{tutorID}
+    </select>
+    <select id="queryByName" parameterType="String" resultType="Tutor">
+        SELECT *
+        FROM tutor
+        WHERE tutor_name = #{tutorName}
+    </select>
+
+    <insert id="insert" parameterType="Tutor">
+        INSERT INTO tutor(tutor_ID,tutor_name,password,role,email,instrument_ID)
+        VALUES(#{tutor.tutorID},#{tutor.tutorName},#{tutor.password},
+                #{tutor.role},#{tutor.email},#{tutor.instrumentID})
+    </insert>
+    <delete id="deleteByID" parameterType="String">
+        DELETE FROM engineer
+        WHERE engineer_ID = #{ID}
+    </delete>
+</mapper>

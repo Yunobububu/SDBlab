@@ -222,7 +222,7 @@
                     success:function (data) {
                         alert(data.message);
                         if(data.code == 200){
-                            window.location.href = uri + "home";
+                            window.location.href = uri;
                         }
                     }
                 })
