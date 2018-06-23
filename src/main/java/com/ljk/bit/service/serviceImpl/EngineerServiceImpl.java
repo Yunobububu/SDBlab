@@ -7,6 +7,7 @@ import com.ljk.bit.service.EngineerService;
 import com.ljk.bit.util.Md5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EngineerServiceImpl implements EngineerService{
@@ -41,6 +42,7 @@ public class EngineerServiceImpl implements EngineerService{
         Engineer engineer = queryByName(name);
         return (engineer != null) ? true : false;
     }
+    @Transactional
     public void insert(Engineer engineer){
         engineerDao.insertOrUpdate(engineer);
     }

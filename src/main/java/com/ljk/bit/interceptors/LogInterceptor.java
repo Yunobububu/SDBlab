@@ -25,7 +25,6 @@ public class LogInterceptor implements MethodInterceptor{
             String message = "userID: "+ userID + " logInTime:" + LocalDateTime.now();
             LOG.info(message);
         }
-        methodInvocation.proceed();
-        return null;
+        return (String)methodInvocation.proceed();
     }
 }

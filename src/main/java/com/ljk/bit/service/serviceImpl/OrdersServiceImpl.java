@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletOutputStream;
 import java.io.IOException;
@@ -125,7 +126,7 @@ public class OrdersServiceImpl implements OrdersService{
     public List<StudentOrderView> studentOrderView(String userID) {
         return ordersDao.queryOrderOfStudent(userID);
     }
-
+    @Transactional
     @Override
     public void deleteByID(long orderID) {
         ordersDao.deleteByOrderID(orderID);
@@ -138,6 +139,7 @@ public class OrdersServiceImpl implements OrdersService{
     public void pass(long orderID){
         ordersDao.pass(orderID);
     }
+    @Transactional
     @Override
     public void export(String[] titles, ServletOutputStream out,String tutorID){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
