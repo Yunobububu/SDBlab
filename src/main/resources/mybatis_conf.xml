@@ -27,6 +27,7 @@
         <typeAlias type="com.ljk.bit.vo.StudentOrderView" alias="StudentOrderView"/>
         <typeAlias type="com.ljk.bit.vo.EngineerOrderView" alias="EngineerOrderView"/>
         <typeAlias type="com.ljk.bit.vo.TutorOrderView" alias="TutorOrderView"/>
+        <typeAlias type="com.ljk.bit.entity.Question" alias="Question"/>
     </typeAliases>
 
     <!-- Continue editing here -->

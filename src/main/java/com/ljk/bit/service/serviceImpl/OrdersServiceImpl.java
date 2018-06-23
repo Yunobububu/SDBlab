@@ -3,7 +3,7 @@ package com.ljk.bit.service.serviceImpl;
 import com.ljk.bit.dao.OrdersDao;
 import com.ljk.bit.entity.Orders;
 import com.ljk.bit.service.OrdersService;
-import com.ljk.bit.util.DateUtils;
+import com.ljk.bit.util.DateUtil;
 import com.ljk.bit.vo.EngineerOrderView;
 import com.ljk.bit.vo.OrdersVo;
 import com.ljk.bit.vo.StudentOrderView;
@@ -45,24 +45,56 @@ public class OrdersServiceImpl implements OrdersService{
     }
     public void insert(int day,String time,String instrumentID,String userID){
 
-        order.setCreateTime(DateUtils.createTime());
-        order.setStartTime(DateUtils.startTime(day,time));
-        order.setEndTime(DateUtils.endTime(day,time));
+        order.setCreateTime(DateUtil.createTime());
+        order.setStartTime(DateUtil.startTime(day,time));
+        order.setEndTime(DateUtil.endTime(day,time));
         order.setInstrumentID(instrumentID);
         order.setUserID(userID);
         ordersDao.insertOrUpdate(order);
     }
     public List<Boolean> isOrdered(){
-        List<LocalDateTime> orderedDates = ordersDao.queryStartTimeList(DateUtils.MonEight(),DateUtils.FriSeventeen());
+        List<LocalDateTime> orderedDates = ordersDao.queryStartTimeList(DateUtil.MonEight(),DateUtil.FriSeventeen());
         List<Boolean> isOrdered = new ArrayList<>();
         int time = 1;
         int day = 1;
         LocalDateTime now = LocalDateTime.now();
         for(;day< 6;day++){
-            LocalDateTime dayNine = DateUtils.dayNine(day);
-            LocalDateTime dayTen = DateUtils.dayTen(day);
-            LocalDateTime dayFourteen = DateUtils.dayFourteen(day);
-            LocalDateTime dayFifteen = DateUtils.dayFifteen(day);
+            LocalDateTime dayNine = DateUtil.dayNine(day);
+            LocalDateTime dayTen = DateUtil.dayTen(day);
+            LocalDateTime dayFourteen = DateUtil.dayFourteen(day);
+            LocalDateTime dayFifteen = DateUtil.dayFifteen(day);
+            for(time = 1;time < 5;time++) {
+                switch (time) {
+                    case 1:
+                        isOrdered.add(orderedDates.contains(dayNine));
+                        break;
+                    case 2:
+                        isOrdered.add(orderedDates.contains(dayTen));
+                        break;
+                    case 3:
+                        isOrdered.add(orderedDates.contains(dayFourteen));
+                        break;
+                    case 4:
+                        isOrdered.add(orderedDates.contains(dayFifteen));
+                        break;
+                }
+            }
+        }
+        System.out.println(isOrdered);
+        return isOrdered;
+    }
+    public List<Boolean> isOrdered(String instrumentID){
+        List<LocalDateTime> orderedDates = ordersDao.queryOrderedListByInstrumentID(
+                DateUtil.MonEight(),DateUtil.FriSeventeen(),instrumentID);
+        List<Boolean> isOrdered = new ArrayList<>();
+        int time = 1;
+        int day = 1;
+        LocalDateTime now = LocalDateTime.now();
+        for(;day< 6;day++){
+            LocalDateTime dayNine = DateUtil.dayNine(day);
+            LocalDateTime dayTen = DateUtil.dayTen(day);
+            LocalDateTime dayFourteen = DateUtil.dayFourteen(day);
+            LocalDateTime dayFifteen = DateUtil.dayFifteen(day);
             for(time = 1;time < 5;time++) {
                 switch (time) {
                     case 1:
@@ -103,7 +135,7 @@ public class OrdersServiceImpl implements OrdersService{
     public List<EngineerOrderView> queryOrdersInWeek(LocalDateTime startTime, LocalDateTime endTime) {
         return ordersDao.queryOrdersInWeek(startTime,endTime);
     }
-    public void pass(String orderID){
+    public void pass(long orderID){
         ordersDao.pass(orderID);
     }
     @Override
@@ -165,4 +197,11 @@ public class OrdersServiceImpl implements OrdersService{
         }
 
     }
+
+    @Override
+    public List<TutorOrderView> queryOrdersForTutors(String tutorID) {
+        return ordersDao.queryOrdersForTutor(tutorID);
+    }
+
+
 }

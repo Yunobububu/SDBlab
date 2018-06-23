@@ -9,7 +9,7 @@ import java.util.*;
  *辅助完成日期的转换,如获取当前日期,根据星期获取当前星期的具体日期
  *
  */
-public class DateUtils {
+public class DateUtil  {
     private static LocalDate today = LocalDate.now();
     public static LocalDateTime createTime(){
         return LocalDateTime.now();

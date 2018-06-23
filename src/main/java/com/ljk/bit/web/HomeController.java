@@ -5,7 +5,7 @@ import com.ljk.bit.entity.Instrument;
 import com.ljk.bit.entity.LoginInfo;
 import com.ljk.bit.service.serviceImpl.InstrumentServiceImpl;
 import com.ljk.bit.service.serviceImpl.OrdersServiceImpl;
-import com.ljk.bit.util.DateUtils;
+import com.ljk.bit.util.DateUtil;
 import com.ljk.bit.util.JWT;
 import com.ljk.bit.vo.StudentOrderView;
 import org.apache.ibatis.annotations.Param;
@@ -39,7 +39,10 @@ public class HomeController {
     }
     @RequestMapping(value = "Polisher",method = RequestMethod.GET)
     public String polisher(Model model,String token,String instrumentID){
-
+        Instrument instrument = instrumentService.queryByID(instrumentID);
+        model.addAttribute("isPast",instrumentService.isPast());
+        model.addAttribute("isOrdered",ordersService.isOrdered(instrumentID));
+        System.out.println(ordersService.isOrdered(instrumentID));
         return "Polisher";
     }
     @RequestMapping(value = "myOrder",method = RequestMethod.GET)

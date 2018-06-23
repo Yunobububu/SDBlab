@@ -18,7 +18,8 @@ $(function () {
                 success:function(data){
                     if(data.code == 200){
                         var token = data.data.token;
-                        window.location.href="http://localhost:8080/home?token="+token;
+                        var redUrl = "http://localhost:8080/home?userID="+ userID+"&token="+ token;
+                        window.location.href= redUrl;
 
                     }else{
                         alert("密码错误");

@@ -3,14 +3,17 @@ package com.ljk.bit.web;
 import com.ljk.bit.dto.ResponseData;
 import com.ljk.bit.entity.LoginInfo;
 import com.ljk.bit.entity.Orders;
+import com.ljk.bit.entity.PagingInfo;
 import com.ljk.bit.service.serviceImpl.OrdersServiceImpl;
-import com.ljk.bit.util.DateUtils;
+import com.ljk.bit.util.DateUtil;
 import com.ljk.bit.util.JWT;
 import com.ljk.bit.vo.EngineerOrderView;
 import com.ljk.bit.vo.StudentOrderView;
+import com.ljk.bit.vo.TutorOrderView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,16 +50,19 @@ public class OrderController {
     public String queryOrdersInWeek(Model model,String token){
         model.addAttribute("token",token);
         List<EngineerOrderView> viewsList =
-                ordersService.queryOrdersInWeek(DateUtils.MonEight(),DateUtils.FriSeventeen());
+                ordersService.queryOrdersInWeek(DateUtil.MonEight(),DateUtil.FriSeventeen());
         model.addAttribute("viewsList",viewsList);
         return "ordersInWeek";
     }
+    /*
+        审核通过
+     */
     @RequestMapping(value = "pass",method = RequestMethod.GET)
-    public String pass(String token,Model model ,String orderID){
+    public String pass(String token,Model model ,long orderID){
         ordersService.pass(orderID);
         model.addAttribute("token",token);
         List<EngineerOrderView> viewsList =
-                ordersService.queryOrdersInWeek(DateUtils.MonEight(),DateUtils.FriSeventeen());
+                ordersService.queryOrdersInWeek(DateUtil.MonEight(),DateUtil.FriSeventeen());
         model.addAttribute("viewsList",viewsList);
         return "ordersInWeek";
     }
@@ -76,5 +82,18 @@ public class OrderController {
         }
         return "success";
     }
-
+    @RequestMapping(value = "tutorView",method = RequestMethod.POST)
+    public @ResponseBody ResponseData tutorView(@RequestBody PagingInfo pagingInfo){
+        String tutorID = pagingInfo.getUserID();
+        List<TutorOrderView> orderViews = ordersService.queryOrdersForTutors(tutorID);
+        //每页显示5条,
+        int pages = orderViews.size() % 2 != 0 ? (orderViews.size() / 2 + 1) : orderViews.size()/2;
+        ResponseData responseData = ResponseData.ok();
+        responseData.putDataValue("pages",pages);
+        responseData.putDataValue("orderViews",orderViews);
+        responseData.putDataValue("total",orderViews.size());
+        responseData.putDataValue("currentPage",pagingInfo.getPage());
+        System.out.println(responseData);
+        return responseData;
+    }
 }

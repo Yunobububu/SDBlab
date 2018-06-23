@@ -4,6 +4,7 @@ import com.ljk.bit.entity.Orders;
 import com.ljk.bit.vo.EngineerOrderView;
 import com.ljk.bit.vo.OrdersVo;
 import com.ljk.bit.vo.StudentOrderView;
+import com.ljk.bit.vo.TutorOrderView;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletOutputStream;
@@ -23,4 +24,5 @@ public interface OrdersService {
     void deleteByID(long orderID);
     List<EngineerOrderView> queryOrdersInWeek(LocalDateTime startTime,LocalDateTime endTime);
     void export(String[] titles, ServletOutputStream out,String tutorID);
+    List<TutorOrderView>  queryOrdersForTutors(String tutorID);
 }

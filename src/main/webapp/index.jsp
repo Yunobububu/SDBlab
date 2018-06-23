@@ -61,6 +61,10 @@
     <a href="register">注册</a><br>
     <a href="testJquery">jqueryTest</a><br>
 
+    <div class="col-md-5 col-md-offset-3">
+        <button type="button" id="quesBut"  class="btn btn-xs btn-primary" onclick="return false">登录</button>
+    </div>
+
 
     <form action="query" method="post">
         <input type="text" name="ID" id="queryID" placeholder="查询ID">
@@ -72,8 +76,12 @@
     <script  type="text/javascript" src="${ctx}/resources/js/md5.js"></script>
 
     <!--禁止表单重复提交,对提交按钮进行监听,验证通过后跳到home页,否则弹出密码错误-->
-    <script type="text/javascript" src="${ctx}/resources/js/index.js"></script>
+    <script type="text/javascript" src="${ctx}/resources/js/index.js?v=${v}"></script>
+    <script type="text/javascript" src="${ctx}/resources/js/answer.js?v=${v}"></script>
+
+    <!--答题测试-->
     <script type="text/javascript">
+
     </script>
 </body>
 </html>

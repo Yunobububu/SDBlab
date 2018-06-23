@@ -27,21 +27,11 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/home/CVD?token=${param.token}&instrumentID=001">CVD</a></li>
                 <li><a href="/home/Polisher?token=${param.token}&instrumentID=002">抛光机</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Java
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">jmeter</a></li>
-                        <li><a href="#">EJB</a></li>
-                        <li><a href="#">Jasper Report</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">分离的链接</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">另一个分离的链接</a></li>
-                    </ul>
-                </li>
+            </ul>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout?token=${param.token}">退出</a></li>
             </ul>
         </div>
     </div>

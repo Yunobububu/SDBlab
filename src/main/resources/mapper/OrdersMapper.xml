@@ -48,7 +48,7 @@
       and o.instrument_ID = i.instrument_ID
       and s.student_ID = o.user_ID
     </select>
-    <update id="pass" parameterType="String">
+    <update id="pass" parameterType="long">
         UPDATE  orders
         SET status = 1
         WHERE order_ID = #{orderID}
@@ -61,5 +61,12 @@
         AND s.student_ID = o.user_ID
         AND o.instrument_ID = i.instrument_ID
         ORDER By o.start_time;
+    </select>
+
+    <select id="queryOrderedListByInstrumentID"  resultType="java.time.LocalDateTime">
+        SELECT start_time from orders
+        WHERE start_time BETWEEN #{startTime} AND #{endTime}
+        AND instrument_ID = #{instrumentID}
+        ORDER By start_time
     </select>
 </mapper>

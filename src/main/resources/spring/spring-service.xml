@@ -12,8 +12,17 @@
             http://www.springframework.org/schema/context/spring-context.xsd
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc.xsd
-            http://www.springframework.org/schema/tx
-            http://www.springframework.org/schema/aop">
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
     <context:component-scan base-package="com.ljk.bit.service"/>
+    <context:component-scan base-package="com.ljk.bit.interceptors"/>
     <mvc:annotation-driven/>
+    <bean id="controllerInterceptor" class="com.ljk.bit.interceptors.ControllerInterceptor"/>
+    <bean id="log" class="com.ljk.bit.interceptors.LogInterceptor"></bean>
+    <aop:config>
+        <aop:pointcut id="logInAndOut" expression="execution(public * com.ljk.bit.web.LoginController.home(..))"/>
+        <aop:pointcut id="allPoint" expression="execution(public * com.ljk.bit.web.HomeController.*(..)) "/>
+        <aop:advisor pointcut-ref="allPoint" advice-ref="controllerInterceptor"/>
+        <aop:advisor pointcut-ref="logInAndOut" advice-ref="log"/>
+    </aop:config>
 </beans>

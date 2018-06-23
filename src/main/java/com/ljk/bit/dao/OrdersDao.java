@@ -25,6 +25,9 @@ public interface OrdersDao {
     void deleteByOrderID(@Param("orderID") long orderID);
     List<EngineerOrderView> queryOrdersInWeek(@Param("startTime") LocalDateTime startTime,
                                               @Param("endTime") LocalDateTime endTime);
-    void pass(@Param("orderID") String orderID);
+    void pass(@Param("orderID") long orderID);
     List<TutorOrderView> queryOrdersForTutor(@Param("tutorID") String tutorID);
+    List<LocalDateTime> queryOrderedListByInstrumentID(@Param("startTime") LocalDateTime startTime,
+                                                       @Param("endTime") LocalDateTime endTime,
+                                                       @Param("instrumentID") String instrumentID);
 }

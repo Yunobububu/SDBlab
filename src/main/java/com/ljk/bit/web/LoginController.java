@@ -102,5 +102,9 @@ public class LoginController {
         }
         return des;
     }
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
+    public String logout(String token){
+        return "redirect:/index.jsp";
+    }
 
 }

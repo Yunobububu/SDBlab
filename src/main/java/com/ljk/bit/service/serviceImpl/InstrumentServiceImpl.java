@@ -3,7 +3,7 @@ package com.ljk.bit.service.serviceImpl;
 import com.ljk.bit.dao.InstrumentDao;
 import com.ljk.bit.entity.Instrument;
 import com.ljk.bit.service.InstrumentService;
-import com.ljk.bit.util.DateUtils;
+import com.ljk.bit.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,6 @@ public class InstrumentServiceImpl implements InstrumentService{
         return instrumentDao.queryByID(ID);
     }
     public List<Boolean> isPast(){
-        return DateUtils.isPast();
+        return DateUtil.isPast();
     }
 }

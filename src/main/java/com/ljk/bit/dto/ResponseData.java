@@ -33,6 +33,15 @@ public class ResponseData {
         this.message = message;
     }
 
+    @Override
+    public String toString() {
+        return "ResponseData{" +
+                "message='" + message + '\'' +
+                ", code=" + code +
+                ", data=" + data +
+                '}';
+    }
+
     public static ResponseData ok() {
         return new ResponseData(200, "Ok");
     }

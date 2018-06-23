@@ -9,6 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="${ctx}/resources/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="${ctx}/resources/bootstrap/css/toastr.css" type="text/css" rel="stylesheet">
+
     <head/>
 <body>
 
@@ -81,6 +83,7 @@
 </div>
 <script type="text/javascript" src="${ctx}/resources/js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="${ctx}/resources/js/md5.js"></script>
+<script type="text/javascript" src="${ctx}/resources/js/toastr.min.js"></script>
 <script type="text/javascript">
     <!--用户注册时使用ajax进行验证-->
     //检测ID是否已经被注册
@@ -94,7 +97,7 @@
             var userID = $("#ID").val();
             var reg = new RegExp("^[0-9]*$");
             if($.trim(userID) == "" || !reg.test($("#ID").val())){
-                alert("用户名不能为空且只能是工号或学号");
+                toastr.error("用户名不能为空且只能是工号或学号");
                 return false;
             }
             var role = $('input[name="role"]:checked').val();
@@ -122,7 +125,7 @@
         function () {
             var userName = $("#name").val();
             if($.trim(userName) == "" ){
-                alert("用户名不能为空");
+                toastr.error("用户名不能为空");
                 return false;
             }
             var role = $('input[name="role"]:checked').val();

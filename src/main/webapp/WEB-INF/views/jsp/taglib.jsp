@@ -7,10 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.time.*"%>
+<%@ page import="java.util.Random" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="resources" value="${pageContext.request.contextPath}/resources"/>
-<c:set var="currentTime" value="${LocalDateTime.now()}"/>
-<c:set var="today" value="${LocalDate.now()}"/>
-<c:set var="MonNine" value="${LocalDateTime.now()}"/>
+<%
+    LocalTime time = LocalTime.now();
+    request.setAttribute("v",time);
+%>
