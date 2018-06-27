@@ -140,6 +140,10 @@
                     if(data.code == -1){
                         //回传的是json对象,可以直接用data.field 获取属性的值
                         $("#nameSpan").html("<em style='font-family: color:red'>用户名已经存在</em>");
+                    }else if(data.code == 400){
+                        var errorHtml = "<em style='font-family: color:red'>" + data.data.errorInfo + "</em>";
+                        $("#nameSpan").html(errorHtml);
+
                     }else{
                         flagTwo = true;
                         $("#nameSpan").html("<em style='font-family: color:green'>用户名可用</em>");

@@ -59,6 +59,8 @@
         </form>
     </div>
     <a href="register">注册</a><br>
+    <a href="queryStudent?ID=33520141152417">查询学生</a><br>
+
     <a href="testJquery">jqueryTest</a><br>
 
     <div class="col-md-5 col-md-offset-3">

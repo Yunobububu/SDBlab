@@ -1,14 +1,21 @@
 package com.ljk.bit.entity;
 
+import com.ljk.bit.validators.ValidatorRegisterGroup;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 @Component
 public class Register {
+    @Size(min = 1,max = 10,message = "{user.ID.length.error}",groups = {ValidatorRegisterGroup.class})
     private String userID;
+    @Size(min = 1,max = 10,message = "{user.name.length.error}",groups = {ValidatorRegisterGroup.class})
     private String userName;
     private String password;
     private String email;
+    @Range(message = "{user.role.null}",groups = {ValidatorRegisterGroup.class})
     private int role;
 
     public Register(String userID, String userName, String password, String email, int role) {

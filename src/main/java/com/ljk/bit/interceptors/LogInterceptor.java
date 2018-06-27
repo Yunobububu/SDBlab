@@ -22,8 +22,7 @@ public class LogInterceptor implements MethodInterceptor{
         LoginInfo loginInfo = JWT.unsign(token,LoginInfo.class);
         String userID = loginInfo.getUserID();
         if(LOG != null){
-            String message = "userID: "+ userID + " logInTime:" + LocalDateTime.now();
-            LOG.info(message);
+            LOG.info("登录用户:{} 登录时间:{}",userID,LocalDateTime.now());
         }
         return (String)methodInvocation.proceed();
     }

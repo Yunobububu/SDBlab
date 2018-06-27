@@ -1,12 +1,23 @@
 package com.ljk.bit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ljk.bit.dto.StudentJsonView;
+import com.ljk.bit.dto.StudentJsonViewWithDetail;
+import com.ljk.bit.validators.ValidatorStudentGroup;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Size;
 import java.util.Objects;
 @Component
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Student {
+    @JsonView(StudentJsonView.class)
+    @Size(min = 1,max = 10,message = "{student.name.error}",groups = {ValidatorStudentGroup.class})
     private String name;
     private String email;
+    @JsonView(StudentJsonViewWithDetail.class)
     private String password;
     private String studentID;
     private String tutorID;

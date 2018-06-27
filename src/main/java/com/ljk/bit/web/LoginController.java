@@ -1,6 +1,9 @@
 package com.ljk.bit.web;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.ljk.bit.dto.ResponseData;
+import com.ljk.bit.dto.StudentJsonView;
+import com.ljk.bit.dto.StudentJsonViewWithDetail;
 import com.ljk.bit.entity.LoginInfo;
 import com.ljk.bit.entity.Student;
 import com.ljk.bit.service.OrdersService;
@@ -16,6 +19,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +37,16 @@ public class LoginController {
     @Autowired
     private TutorServiceImpl tutorService;
     @RequestMapping(value = "/login",method = {RequestMethod.GET,RequestMethod.POST})
-    public @ResponseBody ResponseData login(@RequestBody LoginInfo loginInfo){
+    public @ResponseBody ResponseData login(@Validated @RequestBody LoginInfo loginInfo,
+                                            BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            String message = null;
+            for(ObjectError error:errors){
+                message = error.getDefaultMessage();
+            }
+            return ResponseData.badRequest().putDataValue("message",message);
+        }
         int role = loginInfo.getRole();
         ResponseData responseData = ResponseData.ok();
         String token = JWT.sign(loginInfo,15L*60L*1000L);
@@ -105,6 +120,13 @@ public class LoginController {
     @RequestMapping(value = "logout",method = RequestMethod.GET)
     public String logout(String token){
         return "redirect:/index.jsp";
+    }
+    @RequestMapping(value = "queryStudent",method = RequestMethod.GET)
+    @ResponseBody
+    @JsonView(StudentJsonView.class)
+    public Student queryStudent(String ID){
+        Student student = studentService.queryByID(ID);
+        return student;
     }
 
 }

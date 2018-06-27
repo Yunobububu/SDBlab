@@ -22,8 +22,9 @@ $(function () {
                         window.location.href= redUrl;
 
                     }else{
-                        alert("密码错误");
-                        alert(data.data);
+                        if(data.code == 400){
+                            alert(data.data.message);
+                        }
                     }
                 },
                 error:function (XMLHttpRequest, textStatus, errorThrown) {

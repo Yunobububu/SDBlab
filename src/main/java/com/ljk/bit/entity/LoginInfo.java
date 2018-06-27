@@ -2,10 +2,12 @@ package com.ljk.bit.entity;
 
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Component
 public class LoginInfo {
+    @Size(min=1,max=20,message = "{user.ID.length.error}")
     private String userID;
     private String password;
     private boolean rememberMe;

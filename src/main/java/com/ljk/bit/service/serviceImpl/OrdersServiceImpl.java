@@ -10,6 +10,7 @@ import com.ljk.bit.vo.StudentOrderView;
 import com.ljk.bit.vo.TutorOrderView;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -144,7 +145,6 @@ public class OrdersServiceImpl implements OrdersService{
     public void export(String[] titles, ServletOutputStream out,String tutorID){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         List<TutorOrderView>  orderViews = ordersDao.queryOrdersForTutor(tutorID);
-        System.out.println(orderViews);
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet hssfSheet = workbook.createSheet("预约信息");
         HSSFRow hssfRow = hssfSheet.createRow(0);
@@ -156,7 +156,6 @@ public class OrdersServiceImpl implements OrdersService{
             hssfCell.setCellValue(titles[i]);
             hssfCell.setCellStyle(hssfCellStyle);
         }
-
         if(orderViews != null && orderViews.size() > 0){
             for(int i = 0;i < orderViews.size();i++){
                 hssfRow = hssfSheet.createRow(i + 1);
@@ -172,7 +171,7 @@ public class OrdersServiceImpl implements OrdersService{
                 }
                 hssfRow.createCell(1).setCellValue(instrumentName);
 
-                LocalDateTime startTime = null;
+                   LocalDateTime startTime = null;
                 if(tutorOrderView.getStartTime() != null){
                     startTime = tutorOrderView.getStartTime();
                 }
@@ -204,6 +203,14 @@ public class OrdersServiceImpl implements OrdersService{
     public List<TutorOrderView> queryOrdersForTutors(String tutorID) {
         return ordersDao.queryOrdersForTutor(tutorID);
     }
+    public void exportXlsx(String[] titles,ServletOutputStream out,String tutorID){
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        List<TutorOrderView> orderViewList = ordersDao.queryOrdersForTutor(tutorID);
+        int maxRow = 3;
+        int sheetNumber = orderViewList.size() % 3 == 0 ? orderViewList.size()/3 :orderViewList.size()/3 + 1;
+        for(int i = 0; i < sheetNumber;i++){
 
+        }
+    }
 
 }

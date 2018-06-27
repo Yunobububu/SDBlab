@@ -15,6 +15,8 @@
             http://www.springframework.org/schema/tx
             http://www.springframework.org/schema/aop">
     <context:component-scan base-package="com.ljk.bit.web"/>
+    <context:component-scan base-package="com.ljk.bit.aop"/>
+
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven>
         <!-- 消息转换器 -->
@@ -28,19 +30,34 @@
     <!--配置静态资源映射-->
     <mvc:resources mapping="/resources/**/" location="/resources/"/>
     <!--配置拦截器器-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-                <bean class="com.ljk.bit.interceptors.TokenInterceptor">
-            </bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+                <!--<bean class="com.ljk.bit.interceptors.TokenInterceptor">-->
+            <!--</bean>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
         <property name="suffix" value=".jsp"></property>
         <property name="prefix" value="/WEB-INF/views/jsp/"></property>
     </bean>
-
+    <mvc:annotation-driven validator="validator"/>
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:messages</value>
+                <value>classpath:StudentValidatorMessages</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
 
 </beans>
